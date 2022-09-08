@@ -40,7 +40,7 @@ def guardarRespuestaJuego5(opcion, ventana):
     if opcion.get() == "Pueblo" or opcion.get() == "Elefante":
         listaRespuestas.append(opcion.get())
         ventana.destroy()
-        root.deiconify()
+        abrirVentanaResultadosIndividual()
     else:
         messagebox.showerror("Error", "Por favor ingrese una de las opciones")
 
@@ -78,7 +78,7 @@ def ingresarJuego2():
     frame.pack(fill="both", expand=True)
 
     imagenJuego2 = PhotoImage(file="Parcial1IA/img/juego2.png")
-    Label(frame, image=imagenJuego2).pack(side=TOP, pady=10)
+    Label(frame, image=imagenJuego2).pack(side=TOP, pady=10, padx=10)
     Label(frame, text="¿Cuantas personas ves aqui?").pack()
 
     Radiobutton(frame, text="2", variable=opcion, value=2).pack()
@@ -152,6 +152,24 @@ def ingresarJuego5():
 
     juego5.mainloop()
 
+def abrirVentanaResultadosIndividual():
+    ventana = Toplevel()
+    ventana.title("Resultados individuales")
+    ventana.geometry("500x500")
+
+    frame = Frame(ventana)
+    frame.pack(fill="both", expand=True)
+
+    Label(frame, text="Estos son los resultados de tu juego").pack()
+
+
+    Button(frame, text="Cerrar", command=lambda:abrirVentanaInicio(ventana)).pack(pady=5)
+
+    ventana.mainloop()
+
+def abrirVentanaInicio(ventana):
+    ventana.destroy()
+    root.deiconify()
 
 #Ventana de inicio
 root = Tk()
