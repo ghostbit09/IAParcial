@@ -4,7 +4,7 @@ Este proyeto representa el codigo que desarrollamos para dar solucion al parcial
 
 ## Los integrantes del grupo son:
 
-#### Braian Camilo Piedrahita Rodriguez - Fernando José Murcio Hincapié
+#### Braian Camilo Piedrahita Rodríguez - Fernando José Murcia Hincapié
 
 ## Descripción del proyecto:
 
