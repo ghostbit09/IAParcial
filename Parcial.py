@@ -37,7 +37,7 @@ def guardarRespuestaJuego2(opcion, ventana):
 
 '''Método que guarda la respuesta del tercer juego en la lista de respuestas'''
 def guardarRespuestaJuego3(opcion, ventana):
-    if opcion.get() == 5 or opcion.get() == 6 or opcion.get() == 7 or opcion.get() == 10:
+    if opcion.get() == 5 or opcion.get() == 6 or opcion.get() == 7 or opcion.get() == 10 or opcion.get() == 11:
         listaRespuestas.append(opcion.get())
         ventana.destroy()
         ingresarJuego4()
@@ -46,7 +46,7 @@ def guardarRespuestaJuego3(opcion, ventana):
 
 '''Método que guarda la respuesta del cuarto juego en la lista de respuestas'''
 def guardarRespuestaJuego4(opcion, ventana):
-    if opcion.get() == "izquierda" or opcion.get() == "derecha":
+    if opcion.get() == "arriba" or opcion.get() == "abajo" or opcion.get() == "ambas":
         listaRespuestas.append(opcion.get())
         ventana.destroy()
         ingresarJuego5()
@@ -130,6 +130,7 @@ def ingresarJuego3():
     Radiobutton(frame, text="6", variable=opcion, value=6).pack()
     Radiobutton(frame, text="7", variable=opcion, value=7).pack()
     Radiobutton(frame, text="10", variable=opcion, value=10).pack()
+    Radiobutton(frame, text="11", variable=opcion, value=11).pack()
 
     Button(frame, text="Continuar", command=lambda:guardarRespuestaJuego3(opcion, juego3)).pack(pady=5)
 
@@ -149,8 +150,9 @@ def ingresarJuego4():
     Label(frame, image=imagenJuego4).pack(side=TOP, pady=10)
     Label(frame, text="¿Cual es más grande?").pack()
 
-    Radiobutton(frame, text="Izquierda", variable=opcion, value="izquierda").pack()
-    Radiobutton(frame, text="Derecha", variable=opcion, value="derecha").pack()
+    Radiobutton(frame, text="Pelota de arriba", variable=opcion, value="arriba").pack()
+    Radiobutton(frame, text="Pelota de abajo", variable=opcion, value="abajo").pack()
+    Radiobutton(frame, text="Ambas pelotas son igual de grandes", variable=opcion, value="ambas").pack()
 
     Button(frame, text="Continuar", command=lambda:guardarRespuestaJuego4(opcion, juego4)).pack(pady=5)
 
@@ -188,8 +190,13 @@ def abrirVentanaResultados():
     frame = Frame(ventana)
     frame.pack(fill="both", expand=True)
 
-    cadena = f"Usuario: {nombre.get()}\n\n1. Ves {listaRespuestas[0]} animales\n\n2. Ves {listaRespuestas[1]} personas\n\n"
-    cadena += f"3. Ves {listaRespuestas[2]} animales\n\n4. Consideras que la pelota {listaRespuestas[3]} es más grande\n\n"
+    cadena = f"Usuario: {nombre.get()}\n\n1. Ves {listaRespuestas[0]} animal(es)\n\n2. Ves {listaRespuestas[1]} persona(s)\n\n"
+
+    if listaRespuestas[3] == "ambas":
+        cadena += f"3. Ves {listaRespuestas[2]} animal(es)\n\n4. Consideras que {listaRespuestas[3]} pelotas son igual de grandes\n\n"
+    else:
+        cadena += f"3. Ves {listaRespuestas[2]} animal(es)\n\n4. Consideras que la pelota de {listaRespuestas[3]} es más grande\n\n"
+
     cadena += f"5. Ves un {listaRespuestas[4]} en la imagen"
 
     Label(frame, text="Estos son los resultados de tu juego", font=("curier", 20)).pack(pady=10)
@@ -218,9 +225,11 @@ def abrirVentanaResultadosGrupo():
 
         for i in listaJugadores.keys():
             lista = listaJugadores[i]
-            cadena += f"Nombre del jugador: {i}\n\n1. El jugador vio {lista[0]} animales\n2. El jugador vio {lista[1]} personas\n3. El jugador vio {lista[2]} animales\n"
-            cadena += f"4. El jugador considera que la pelota {lista[3]} es mas grande\n5. El jugador ve un {lista[4]}\n\n"
-
+            cadena += f"Nombre del jugador: {i}\n\n1. El jugador vio {lista[0]} animal(es)\n2. El jugador vio {lista[1]} persona(s)\n3. El jugador vio {lista[2]} animal(es)\n"
+            if lista[3] == "ambas":
+                cadena += f"4. El jugador considera que {lista[3]} pelotas son iguales\n5. El jugador ve un {lista[4]}\n\n"
+            else:
+                cadena += f"4. El jugador considera que la pelota de {lista[3]} es mas grande\n5. El jugador ve un {lista[4]}\n\n"
 
         ventana = Toplevel()
         ventana.title("Resultados")
@@ -242,11 +251,8 @@ def abrirVentanaResultadosGrupo():
 #Ventana de inicio
 root = Tk()
 root.title("Juego de ilusiones opticas")
-#root.geometry("500x650")
 frame = Frame(root)
 frame.pack()
-#imagenPortada = PhotoImage(file="Parcial1IA/img/portada.png")
-#Label(frame, image=imagenPortada).pack(side=TOP, pady=10)
 Label(frame, text="Bienvenido a este juego que retara\ntu manera de ver la realidad", font="curier 14").pack(anchor="center", pady=10)
 Label(frame, text="Ingresa tu nombre", font="curier 14").pack(anchor="center", pady=10)
 nombre = StringVar()
